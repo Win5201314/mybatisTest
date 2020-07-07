@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zsl.mybatis.dao.WebsitesMapper">
+    <!--<cache eviction="FIFO" flushInterval="60000" readOnly="false" type="" blocking="" size="1024"/>-->
+    <resultMap id="firstResultMap" type="com.zsl.mybatis.entity.Websites">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="alexa" property="alexa"/>
+        <result column="country" property="country"/>
+    </resultMap>
+    <!--public Websites selectWebsitesById(Integer id);-->
+    <select id="selectWebsitesById" resultType="com.zsl.mybatis.entity.Websites">
+        select * from Websites where id = #{id}
+    </select>
+    <!--public List<Websites> selectWebsitesByCountry(String country);-->
+    <select id="selectWebsitesByCountry" resultType="com.zsl.mybatis.entity.Websites">
+        select * from Websites where country = #{country}
+    </select>
+    <!--public Websites selectWebsitesByIdMap(HashMap<String, Object> map);-->
+    <select id="selectWebsitesByIdMap" parameterType="map" resultType="com.zsl.mybatis.entity.Websites">
+        select * from Websites where id = #{id}
+    </select>
+    <!--public boolean saveWebsites(Websites websites);-->
+    <insert id="saveWebsites" useGeneratedKeys="true" keyProperty="id">
+        insert into Websites (name, url, alexa, country) values(#{name}, #{url}, #{alexa}, #{country})
+    </insert>
+    <!--public boolean deleteWebsites(Integer id);-->
+    <delete id="deleteWebsites">
+        delete from Websites where id = #{id}
+    </delete>
+    <!--public boolean updateWebsites(Websites websites);-->
+    <update id="updateWebsites">
+        update Websites set name = #{name}, url=#{url} where id = #{id}
+    </update>
+    <!--public boolean updateWebsitesByAlexa(@Param("id") Integer id, @Param("alexa") Integer alexa);-->
+    <update id="updateWebsitesByAlexa">
+        update Websites set alexa = #{alexa} where id = #{id}
+    </update>
+</mapper>
